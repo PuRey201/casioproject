@@ -1,8 +1,9 @@
 services:
   - type: web
-    name: casio-project
+    name: casioproject
     env: docker
-    dockerfilePath: ./Dockerfile
     plan: free
-    ports:
-      - 8000
+    branch: main
+    dockerfilePath: Dockerfile
+    buildCommand: ""
+    startCommand: "" # Leave this blank so Dockerfile CMD is used
