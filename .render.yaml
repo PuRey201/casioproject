@@ -2,12 +2,7 @@ services:
   - type: web
     name: casio-project
     env: docker
-    plan: free
     dockerfilePath: ./Dockerfile
-    envVars:
-      - key: APP_ENV
-        value: production
-      - key: APP_KEY
-        generateValue: true
+    plan: free
     ports:
       - 8000
