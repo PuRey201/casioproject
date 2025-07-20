@@ -10,4 +10,7 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    preview: {
+        allowedHosts: ['casioproject.onrender.com'],
+    },
 });
