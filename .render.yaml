@@ -1,8 +1,12 @@
 services:
   - type: web
-    name: casio-laravel
-    env: docker
-    plan: free
-    branch: main         # change to 'master' if your GitHub uses that
-    rootDir: .           # the folder where your Dockerfile is located
-    dockerfile: Dockerfile
+    name: casioproject
+    env: node
+    buildCommand: |
+      npm install
+      npm run build
+    startCommand: |
+      php artisan serve --host=0.0.0.0 --port=10000
+    envVars:
+      - key: APP_ENV
+        value: production
