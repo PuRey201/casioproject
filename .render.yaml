@@ -6,4 +6,6 @@ services:
     branch: main
     dockerfilePath: Dockerfile
     buildCommand: ""
-    startCommand: "" # Leave this blank so Dockerfile CMD is used
+    startCommand: "" # Use CMD from Dockerfile
+    ports:
+      - port: 8000 # Add this line
