@@ -1,0 +1,8 @@
+services:
+  - type: web
+    name: casio-laravel
+    env: docker
+    plan: free
+    branch: main         # change to 'master' if your GitHub uses that
+    rootDir: .           # the folder where your Dockerfile is located
+    dockerfile: Dockerfile
