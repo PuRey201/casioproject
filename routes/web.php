@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 //     return view('casio');
 // });
 
-Route::get('/', [CalculatorController::class, 'casio'])->name('casio');
+Route::get('/', [CalculatorController::class, 'index'])->name('index');
 Route::post('/calculate', [CalculatorController::class, 'calculate'])->name('calculate');
 Route::get('/history', [CalculatorController::class, 'history'])->name('history');
 Route::post('/clear-history', [CalculatorController::class, 'clearHistory'])->name('clear.history');
