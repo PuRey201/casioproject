@@ -1,28 +1,29 @@
-FROM php:8.2-apache
+# Use PHP with Apache
+FROM php:8.1-apache
 
-# Install dependencies
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libonig-dev libzip-dev libpng-dev libxml2-dev \
-    && docker-php-ext-install pdo pdo_mysql zip mbstring exif pcntl bcmath
+    git unzip curl libzip-dev zip \
+    && docker-php-ext-install zip pdo pdo_mysql
 
-# Enable Apache mod_rewrite
+# Enable Apache rewrite module (needed for Laravel routing)
 RUN a2enmod rewrite
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy all files
-COPY . .
+# Copy project files into container
+COPY . /var/www/html
 
-# Set permissions
+# Set proper permissions
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
 
-# Install Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Change DocumentRoot to Laravel's public folder
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
-# Run composer
-RUN composer install --no-dev --optimize-autoloader
-
-# Expose port
+# Expose port 80
 EXPOSE 80
+
+# Start Apache server
+CMD ["apache2-foreground"]
