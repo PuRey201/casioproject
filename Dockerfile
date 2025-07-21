@@ -7,17 +7,16 @@ RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 
 # Set the document root to /var/www/html/public
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
-# Update Apache config to use the new document root
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+# Update the Apache config
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf /etc/apache2/apache2.conf /etc/apache2/sites-enabled/000-default.conf
 
-# Copy app files
+# Copy all files
 COPY . /var/www/html
 
-# Set proper permissions (optional but recommended)
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+# Set correct permissions (optional but recommended)
+RUN chown -R www-data:www-data /var/www/html
 
-# Expose port
-EXPOSE 80
+# Start Apache
+CMD ["apache2-foreground"]
