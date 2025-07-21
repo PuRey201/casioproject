@@ -4,8 +4,8 @@ services:
     env: docker
     plan: free
     branch: main
-    dockerfilePath: Dockerfile   # <== REMOVE "CasioProject/"
+    dockerfilePath: Dockerfile
     buildCommand: ""
-    startCommand: "php artisan serve --host=0.0.0.0 --port=10000"
+    startCommand: "apache2-foreground"
     ports:
-      - port: 10000
+      - port: 80
